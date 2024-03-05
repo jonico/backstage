@@ -56,6 +56,7 @@ import { createFromTemplateRouteRef, viewTechDocRouteRef } from '../../routes';
 import { AboutContent } from './AboutContent';
 import CachedIcon from '@material-ui/icons/Cached';
 import CreateComponentIcon from '@material-ui/icons/AddCircleOutline';
+import CopyIcon from '@material-ui/icons/FileCopy';
 import DocsIcon from '@material-ui/icons/Description';
 import EditIcon from '@material-ui/icons/Edit';
 import { isTemplateEntityV1beta3 } from '@backstage/plugin-scaffolder-common';
@@ -122,6 +123,7 @@ export function AboutCard(props: AboutCardProps) {
     entity.metadata.annotations?.[ANNOTATION_EDIT_URL];
 
   let techdocsRef: CompoundEntityRef | undefined;
+  let sourceTemplateRef: CompoundEntityRef | undefined;
 
   if (entity.metadata.annotations?.[TECHDOCS_EXTERNAL_ANNOTATION]) {
     try {
@@ -131,6 +133,18 @@ export function AboutCard(props: AboutCardProps) {
       // not a fan of this but we don't care if the parseEntityRef fails
     } catch {
       techdocsRef = undefined;
+    }
+  }
+
+  // todo: should this be a constant in a scaffolder package?
+  if (entity.metadata.annotations?.['backstage.io/source-template']) {
+    try {
+      sourceTemplateRef = parseEntityRef(
+        entity.metadata.annotations?.['backstage.io/source-template'],
+      );
+      // not a fan of this but we don't care if the parseEntityRef fails
+    } catch {
+      sourceTemplateRef = undefined;
     }
   }
 
@@ -238,6 +252,18 @@ export function AboutCard(props: AboutCardProps) {
             >
               <EditIcon />
             </IconButton>
+            {sourceTemplateRef && templateRoute && (
+              <IconButton
+                component={Link}
+                title="Create something similar"
+                to={templateRoute({
+                  namespace: sourceTemplateRef.namespace,
+                  templateName: sourceTemplateRef.name,
+                })}
+              >
+                <CopyIcon />
+              </IconButton>
+            )}
           </>
         }
         subheader={<HeaderIconLinkRow links={subHeaderLinks} />}
