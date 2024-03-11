@@ -1,5 +1,21 @@
 # @backstage/plugin-azure-sites-backend
 
+## 0.3.0-next.2
+
+### Patch Changes
+
+- 2bd1410: Removed unused dependencies
+- Updated dependencies
+  - @backstage/backend-common@0.21.4-next.2
+  - @backstage/plugin-permission-node@0.7.25-next.2
+  - @backstage/backend-plugin-api@0.6.14-next.2
+  - @backstage/catalog-client@1.6.1-next.0
+  - @backstage/config@1.2.0-next.1
+  - @backstage/errors@1.2.4-next.0
+  - @backstage/plugin-azure-sites-common@0.1.3-next.1
+  - @backstage/plugin-catalog-node@1.8.0-next.2
+  - @backstage/plugin-permission-common@0.7.13-next.1
+
 ## 0.3.0-next.1
 
 ### Patch Changes
